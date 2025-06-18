@@ -1,0 +1,3346 @@
+openapi: 3.0.1
+info:
+  title: Epump API
+  description: Manage your Gas Stations
+  termsOfService: https://epump.com.ng/terms
+  contact:
+    name: Service Guy
+    url: https://epump.com.ng/contact
+  version: v1
+paths:
+  /Account/login:
+    post:
+      tags:
+        - Account
+      summary: Authentication
+      description: This API endpoint handles user authentication and token generation.
+      requestBody:
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Login'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/Login'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Account/RefreshToken:
+    post:
+      tags:
+        - Account
+      summary: 'Refresh Token'
+      description: "This API endpoint is used to refresh the user's access token by providing a valid refresh token"
+      requestBody:
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoginResponse'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Account/RevokeToken:
+    post:
+      tags:
+        - Account
+      summary: 'Delete Active Token'
+      description: "This endpoint is used to revoke active valid token"
+      requestBody:
+        required: true
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+          application/*+xml:
+            schema:
+              $ref: '#/components/schemas/RevokeTokenRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RevokeTokenResponse'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RevokeTokenResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RevokeTokenResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RevokeTokenResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RevokeTokenResponse'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Admin/DisconnectedDevice:
+    get:
+      tags:
+        - Admin
+      summary: 'Disconnect Pump'
+      description: "This endpoint is used to check if the pump have been disconnected"
+      parameters:
+        - name: partnerId
+          required: true
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+  /Admin/DeviceOutOfReach:
+    get:
+      tags:
+        - Admin
+      summary: "Unreachable Pump"
+      description: "This endpoint is used to check if a pump is unreachable"
+      parameters:
+        - name: partnerId
+          required: true
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+  /Admin/DeviceNotMakingSales:
+    get:
+      tags:
+        - Admin
+      summary: "Unprofitable Pump"
+      description: "This endpoint is used to check if a pump is not making sales"
+      parameters:
+        - name: partnerId
+          required: true
+          in: query
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+  /Branch/Pumps/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: "Available Pump"
+      description: "This endpoint fetches the list of the pumps configured on this Branch"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PumpDTOMini'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PumpDTOMini'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PumpDTOMini'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PumpDTOMini'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PumpDTOMini'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/Sales/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: "Branch Sales"
+      description: "This endpoint returns the Pump sales per day in the station, within the specified date range"
+      parameters:
+        - name: branchId
+          required: true
+          in: path
+          description: ''
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/Transactions/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: "Branch Transactions"
+      description: "This endpoint fetches branch  transactions of pumps in a station, within the specified date range"
+      parameters:
+        - name: branchId
+          required: true
+          in: path
+          description: Branch Id
+          schema:
+            type: string
+            format: uuid
+        - name: pumpId
+          required: true
+          in: query
+          description: Pump Id
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: Start Date
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: End Date
+          schema:
+            type: string
+        - name: minSale
+          in: query
+          description: Minimum Sale
+          schema:
+            type: number
+            format: double
+        - name: maxSale
+          in: query
+          description: Maximum Sale
+          schema:
+            type: number
+            format: double
+        - name: query
+          in: query
+          description: Query
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Sales Type
+          schema:
+            type: string
+            default: ''
+        - name: product
+          in: query
+          description: Product
+          schema:
+            type: string
+            default: ''
+        - name: startTime
+          in: query
+          description: Start Time
+          schema:
+            $ref: '#/components/schemas/TimeSpan'
+        - name: endTime
+          in: query
+          description: End Time
+          schema:
+            $ref: '#/components/schemas/TimeSpan'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/PumpTransactions/{pumpId}:
+    get:
+      tags:
+        - Branch
+      summary: "Pump Transactions"
+      description: "This endpoint fetches the transactions of a particular pump in a station, within the specified date range"
+      parameters:
+        - name: pumpId
+          required: true
+          in: path
+          description: ''
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+        - name: minSale
+          in: query
+          description: ''
+          schema:
+            type: number
+            format: double
+        - name: maxSale
+          in: query
+          description: ''
+          schema:
+            type: number
+            format: double
+        - name: query
+          in: query
+          description: ''
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: ''
+          schema:
+            type: string
+            default: ''
+        - name: startTime
+          in: query
+          description: ''
+          schema:
+            $ref: '#/components/schemas/TimeSpan'
+        - name: endTime
+          in: query
+          description: ''
+          schema:
+            $ref: '#/components/schemas/TimeSpan'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/PumpStatus/{pumpId}:
+    get:
+      tags:
+        - Branch
+      summary: "Pump Status"
+      description: "This endpoint fetches the status of a particular pump in a station"
+      parameters:
+        - name: pumpId
+          required: true
+          in: path
+          description: ''
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            application/xml:
+              schema:
+                type: string
+            text/xml:
+              schema:
+                type: string
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/SalesTransactions/{partnerId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Voucher/Card Transactions'
+      description: "This endpoint fetches the transactions of a particular voucher/card or transactionId in a station"
+      parameters:
+        - name: partnerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: voucherCardNumber
+          in: query
+          description: ''
+          schema:
+            type: string
+        - name: transactionId
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/TankProductSales/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Pump Total Sales'
+      description: "This endpoint fetches the quantity of product sold from a tank within the date range"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankSalesObject'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankSalesObject'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankSalesObject'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankSalesObject'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankSalesObject'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/Tanks/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Branch Tanks'
+      description: "This endpoint fetches the list of tanks in a branch(Stations)"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/TankFills/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Branch Discharges'
+      description: "This endpoint returns the list of the captured proct Dischage in a branch(Stations)"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/InventoryReport/{BranchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Branch Tanks Inventory'
+      description: "This endpoint returns the current inventory in the Tanks of a Branch"
+      parameters:
+        - name: BranchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryReportDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryReportDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryReportDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryReportDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryReportDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/ProductDischarge/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Branch Discharge Records'
+      description: "This endpoint returns the discharge records of a Branch as it happened withen a date range"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankFillDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/ManualRecord/Pump/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Manual PumpRecords'
+      description: "This endpoint returns pump manual records by Branch Id"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ManualPumpTransactionDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ManualPumpTransactionDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ManualPumpTransactionDto'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ManualPumpTransactionDto'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ManualPumpTransactionDto'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/ManualRecord/Tank/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'Branch Tank Manual'
+      description: "This endpoint get Tank manual records by Branch Id"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDippingDto'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDippingDto'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDippingDto'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDippingDto'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TankDippingDto'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/EndofDayReport/SalesSummary/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'EOD Sales Report'
+      description: "This endpoint get end of Day Report Sales summary"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EODSalesVM'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EODSalesVM'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EODSalesVM'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EODSalesVM'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/EODSalesVM'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/EndofDayReport/DryStockSummary/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'EOD Dry Stock Manangement' 
+      description: "This endpoint get End of day report for Dry stock Management"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EODDrystockSummary'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EODDrystockSummary'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EODDrystockSummary'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EODDrystockSummary'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/EODDrystockSummary'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/EndofDayReport/ExpenseSummary/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'EOD Expense Management'
+      description: "This endpoint get End of day report for Expense Management Summary"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EODExpenseSummary'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EODExpenseSummary'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EODExpenseSummary'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EODExpenseSummary'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/EODExpenseSummary'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/EndofDayReport/RentalManagement/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'EOD Rental Management'
+      description: "This endpoint get End of day report for Rental Management"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EODRentalSummary'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EODRentalSummary'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EODRentalSummary'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EODRentalSummary'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/EODRentalSummary'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Branch/EndofDayReport/MaintenanceManagement/{branchId}:
+    get:
+      tags:
+        - Branch
+      summary: 'EOD Maintenance Management'
+      description: "This endpoint get end of day report for Maintenance Management"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/EODMaintenanceSummary'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EODMaintenanceSummary'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EODMaintenanceSummary'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EODMaintenanceSummary'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/EODMaintenanceSummary'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/MyCompanies:
+    get:
+      tags:
+        - Company
+      summary: 'Companies'
+      description: "This endpoint get the list of available companies"
+      responses:
+        '200':
+          description: Success
+  /Company/MyBranches:
+    get:
+      tags:
+        - Company
+      summary: 'Company Branches'
+      description: "This endpoint get company's branches"
+      responses:
+        '200':
+          description: Success
+  /Company/Branches/{CompanyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Branches By CompanyID'
+      description: "This endpoint get Branches/Stations by CompanyID, filter by name (station names only) and query (address, state, city etc.)"
+      parameters:
+        - name: CompanyId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: name
+          in: query
+          description: ''
+          schema:
+            type: string
+        - name: query
+          in: query
+          description: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/Branches/{CompanyId}/{State}:
+    get:
+      tags:
+        - Company
+      summary: 'Branches by CompanyID and State'
+      description: "This endpoint get Branches/Stations by CompanyID and State"
+      parameters:
+        - name: CompanyId
+          in: path
+          description: Company ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: State
+          in: path
+          description: State
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchIntegrationDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/BranchSales/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Pump By Pump Sale'
+      description: "This endpoint get pump by pump sales of a branch for a company"
+      parameters:
+        - name: companyId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompanyBranchSalesDTOWithPump'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/BranchTransactions/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Branch Pump Transaction'
+      description: "This endpoint return the Branch pump transactions of  a Company, within the specified date range"
+      parameters:
+        - name: companyId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchSalesTransactionDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/TanksFilled/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Tanks Filled'
+      description: "This endpoint get the list of available filled tanks"
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /Company/DealerTanksFilled/{dealerId}:
+    get:
+      tags:
+        - Company
+      summary: 'Dealer Tanks'
+      description: "This endpoint get the list of dealer's tanks filled"
+      parameters:
+        - name: dealerId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /Company/GroupTanksFilled/{groupId}:
+    get:
+      tags:
+        - Company
+      summary: "Filled Tanks for a group"
+      description: "This endpoint returns a list of tanks that have been filled for a specific group within a company"
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: date
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+  /Company/TankFills/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Tank fill records for a company'
+      description: "This endpoint returns a list of tank fill records associated with a specific company."
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Unique identifier for the company.
+        - name: startDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Filter records from this start date (inclusive).
+        - name: endDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+  /Company/DisconnectedPumpCount/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Disconnected Pump Count'
+      description: "This endpoint get Disconnected pump count"
+      parameters:
+        - name: companyId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int32
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            text/json:
+              schema:
+                type: integer
+                format: int32
+            application/xml:
+              schema:
+                type: integer
+                format: int32
+            text/xml:
+              schema:
+                type: integer
+                format: int32
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/DisconnectedPump/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Disconnected Pump List'
+      description: "This endpoint get Disconnected Pump list"
+      parameters:
+        - name: companyId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfflinePumpDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfflinePumpDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfflinePumpDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfflinePumpDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfflinePumpDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/OfflinePumpCount/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Offline pump count'
+      description: "This endpoint returns the number of pumps currently offline for a specified company."
+      parameters:
+        - name: companyId
+          in: path
+          required: true
+          description: Unique identifier of the company.
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int32
+            application/json:
+              schema:
+                type: integer
+                format: int32
+            text/json:
+              schema:
+                type: integer
+                format: int32
+            application/xml:
+              schema:
+                type: integer
+                format: int32
+            text/xml:
+              schema:
+                type: integer
+                format: int32
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /Company/OfflinePump/{companyId}:
+    get:
+      tags:
+        - Company
+      summary: 'Offline Pump List'
+      description: "This endpoint get the list of offline pump"
+      parameters:
+        - name: companyId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDeviceNotPushingDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDeviceNotPushingDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDeviceNotPushingDTO'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDeviceNotPushingDTO'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDeviceNotPushingDTO'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /DrystockProduct/{branchId}:
+    get:
+      tags:
+        - DrystockProduct
+      summary: 'Branch Dry Stock Record'
+      description: "This endpoint get Dry stock records by branch Id"
+      parameters:
+        - name: branchId
+          in: path
+          description: 'The ID of the branch'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DSProduct'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DSProduct'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DSProduct'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DSProduct'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DSProduct'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /DryStockSale/{branchId}:
+    get:
+      tags:
+        - DryStockSale
+      summary: 'Branch Dry Stock Sales'
+      description: "This endpoint get dry stock sales by branch Id"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDryStockSale'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDryStockSale'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDryStockSale'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDryStockSale'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BranchDryStockSale'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /DryStockSupply/{branchId}:
+    get:
+      tags:
+        - DryStockSupply
+      summary: 'Branch Dry Stock Supply'
+      description: "This endpoint get supply by branch Id"
+      parameters:
+        - name: branchId
+          in: path
+          description: ''
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: startDate
+          in: query
+          description: ''
+          schema:
+            type: string
+        - name: endDate
+          in: query
+          description: ''
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DryStockSupply'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DryStockSupply'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DryStockSupply'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DryStockSupply'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DryStockSupply'
+        '500':
+          description: Server Error
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        statusDescription:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    BranchDeviceNotPushingDTO:
+      type: object
+      properties:
+        lastDate:
+          type: string
+          format: date-time
+          nullable: true
+        deviceId:
+          type: string
+          nullable: true
+        nozzles:
+          type: string
+          nullable: true
+        deviceType:
+          type: string
+          nullable: true
+        companyName:
+          type: string
+          nullable: true
+        branchName:
+          type: string
+          nullable: true
+        street:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        state:
+          type: string
+          nullable: true
+        region:
+          type: string
+          nullable: true
+        duration:
+          type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    BranchDryStockSale:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date-time
+        retailOutlet:
+          type: string
+          nullable: true
+        discountPrice:
+          type: number
+          format: double
+          nullable: true
+        quantitySold:
+          type: number
+          format: double
+        totalAmount:
+          type: number
+          format: double
+        product:
+          type: array
+          items:
+            type: string
+          nullable: true
+        customerName:
+          type: string
+          nullable: true
+        taxRate:
+          type: integer
+          format: int32
+      additionalProperties: false
+    BranchIntegrationDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        phone:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        street:
+          type: string
+          nullable: true
+        city:
+          type: string
+          nullable: true
+        lga:
+          type: string
+          nullable: true
+        state:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        latitude:
+          type: number
+          format: double
+          nullable: true
+        longitude:
+          type: number
+          format: double
+          nullable: true
+        companyId:
+          type: string
+          format: uuid
+          nullable: true
+        companyName:
+          type: string
+          nullable: true
+        companyLogoUrl:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date-time
+        groupId:
+          type: string
+          format: uuid
+          nullable: true
+        groupName:
+          type: string
+          nullable: true
+        fullAddress:
+          type: string
+          nullable: true
+        branchStatus:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        regionId:
+          type: string
+          format: uuid
+          nullable: true
+        regionName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    BranchSalesTransactionDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date-time
+        closingRead:
+          type: number
+          format: double
+          nullable: true
+        openingRead:
+          type: number
+          format: double
+          nullable: true
+        pumpId:
+          type: string
+          format: uuid
+        branchId:
+          type: string
+          format: uuid
+        volSold:
+          type: number
+          format: double
+        amount:
+          type: number
+          format: double
+          nullable: true
+        staffName:
+          type: string
+          nullable: true
+        voucherCardNumber:
+          type: string
+          nullable: true
+        salesType:
+          type: string
+          nullable: true
+        branchName:
+          type: string
+          nullable: true
+        productName:
+          type: string
+          nullable: true
+        pumpName:
+          type: string
+          nullable: true
+        price:
+          type: number
+          format: double
+          nullable: true
+        rtt:
+          type: number
+          format: double
+        transactionTime:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    CompanyBranchSalesDTOWithPump:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        openingReading:
+          type: number
+          format: double
+          nullable: true
+        lastReading:
+          type: number
+          format: double
+          nullable: true
+        volumeSold:
+          type: number
+          format: double
+          nullable: true
+        amountSold:
+          type: number
+          format: double
+          nullable: true
+        price:
+          type: number
+          format: double
+          nullable: true
+        productName:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date-time
+        branchName:
+          type: string
+          nullable: true
+        branchId:
+          type: string
+          format: uuid
+        dealerName:
+          type: string
+          nullable: true
+        pumpName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DSProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        defaultImage:
+          type: string
+          nullable: true
+        category:
+          type: string
+          nullable: true
+        pricePerUnitRange:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        isCompanyProduct:
+          type: boolean
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/DryStockImages'
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DSVariation'
+          nullable: true
+      additionalProperties: false
+    DSVariation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        size:
+          type: integer
+          format: int32
+        pricePerUnit:
+          type: number
+          format: double
+        variartionId:
+          type: string
+          format: uuid
+        variationName:
+          type: string
+          nullable: true
+        sizeDetail:
+          type: string
+          nullable: true
+        totalItem:
+          type: integer
+          format: int32
+        quantityPerUnit:
+          type: integer
+          format: int32
+      additionalProperties: false
+    DryStockImages:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          nullable: true
+      additionalProperties: false
+    DryStockSupply:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        date:
+          type: string
+          format: date-time
+        totalAmount:
+          type: number
+          format: double
+        status:
+          type: string
+          nullable: true
+        retailOutlet:
+          type: string
+          nullable: true
+        quantitySupplied:
+          type: number
+          format: double
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupplyItem'
+          nullable: true
+        recordedBy:
+          type: string
+          nullable: true
+      additionalProperties: false
+    EODAccountSummary:
+      type: object
+      properties:
+        totalSales:
+          type: number
+          format: double
+        cashSales:
+          type: number
+          format: double
+        eSales:
+          type: number
+          format: double
+        cashToBank:
+          type: number
+          format: double
+        rtt:
+          type: number
+          format: double
+        cashAtHand:
+          type: number
+          format: double
+        expense:
+          type: number
+          format: double
+        pos:
+          type: number
+          format: double
+      additionalProperties: false
+    EODDryStockSaleSupplyBreakDown:
+      type: object
+      properties:
+        amount:
+          type: number
+          format: double
+        itemCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    EODDrystockSummary:
+      type: object
+      properties:
+        totalSale:
+          $ref: '#/components/schemas/EODDryStockSaleSupplyBreakDown'
+        totalSupply:
+          $ref: '#/components/schemas/EODDryStockSaleSupplyBreakDown'
+        totalProductLeft:
+          type: number
+          format: double
+      additionalProperties: false
+    EODEsalesSummary:
+      type: object
+      properties:
+        product:
+          type: string
+          nullable: true
+        posSales:
+          type: number
+          format: double
+        cardSales:
+          type: number
+          format: double
+        remisSales:
+          type: number
+          format: double
+        retainershipSales:
+          type: number
+          format: double
+        ussdSales:
+          type: number
+          format: double
+        voucherSales:
+          type: number
+          format: double
+      additionalProperties: false
+    EODExpense:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        amount:
+          type: number
+          format: double
+      additionalProperties: false
+    EODExpenseSummary:
+      type: object
+      properties:
+        totalExpenses:
+          type: number
+          format: double
+        expenses:
+          type: array
+          items:
+            $ref: '#/components/schemas/EODExpense'
+          nullable: true
+      additionalProperties: false
+    EODMaintenanceSummary:
+      type: object
+      properties:
+        totalMaintenanceRequest:
+          type: integer
+          format: int32
+        totalPendingRequest:
+          type: integer
+          format: int32
+        totalFixedRequest:
+          type: integer
+          format: int32
+      additionalProperties: false
+    EODProductSummary:
+      type: object
+      properties:
+        product:
+          type: string
+          nullable: true
+        productUnit:
+          type: string
+          nullable: true
+        productUnitSymbol:
+          type: string
+          nullable: true
+        totalVolumeSold:
+          type: number
+          format: double
+        totalAmountSold:
+          type: number
+          format: double
+        totalRTT:
+          type: number
+          format: double
+        totalCashSale:
+          type: number
+          format: double
+        totalOfflineSale:
+          type: number
+          format: double
+        totalEsales:
+          type: number
+          format: double
+        quantityReceived:
+          type: number
+          format: double
+        openingStock:
+          type: number
+          format: double
+        currentStock:
+          type: number
+          format: double
+      additionalProperties: false
+    EODRentalSummary:
+      type: object
+      properties:
+        estimatedRentRevenue:
+          type: number
+          format: double
+        totalAmountPaid:
+          type: number
+          format: double
+        outstandingPayment:
+          type: number
+          format: double
+      additionalProperties: false
+    EODSalesByVolume:
+      type: object
+      properties:
+        product:
+          type: string
+          nullable: true
+        salesPercent:
+          type: number
+          format: double
+      additionalProperties: false
+    EODSalesSummary:
+      type: object
+      properties:
+        product:
+          type: string
+          nullable: true
+        productUnit:
+          type: string
+          nullable: true
+        productUnitSymbol:
+          type: string
+          nullable: true
+        pumpSales:
+          type: number
+          format: double
+        tankSales:
+          type: number
+          format: double
+        surplus:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    EODSalesVM:
+      type: object
+      properties:
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        lubricantConversion:
+          type: number
+          format: double
+        lubricantConversionRate:
+          type: integer
+          format: int32
+        duration:
+          type: number
+          format: double
+          readOnly: true
+        totalSales:
+          type: number
+          format: double
+        productSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/EODProductSummary'
+          nullable: true
+        esalesSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/EODEsalesSummary'
+          nullable: true
+        salesSummary:
+          type: array
+          items:
+            $ref: '#/components/schemas/EODSalesSummary'
+          nullable: true
+        salesByVolume:
+          type: array
+          items:
+            $ref: '#/components/schemas/EODSalesByVolume'
+          nullable: true
+        eSalesByVolume:
+          type: array
+          items:
+            $ref: '#/components/schemas/EODSalesByVolume'
+          nullable: true
+        accountSummary:
+          $ref: '#/components/schemas/EODAccountSummary'
+      additionalProperties: false
+    InventoryReportDTO:
+      type: object
+      properties:
+        tankId:
+          type: string
+          format: uuid
+        tankName:
+          type: string
+          nullable: true
+        currentVolume:
+          type: number
+          format: double
+        tankCapacity:
+          type: number
+          format: double
+        product:
+          type: string
+          nullable: true
+        lastFilledDate:
+          type: string
+          format: date-time
+          nullable: true
+        lastFilledVolume:
+          type: number
+          format: double
+        avgProductDispensePerDay:
+          type: number
+          format: double
+      additionalProperties: false
+    Login:
+      required:
+        - password
+        - userName
+      type: object
+      properties:
+        userName:
+          minLength: 1
+          type: string
+          format: email
+        password:
+          minLength: 1
+          type: string
+          format: password
+      additionalProperties: false
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: true
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        refreshToken:
+          type: string
+          nullable: true
+        role:
+          type: string
+          nullable: true
+      additionalProperties: false
+    ManualPumpTransactionDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        outerOpeningRead:
+          type: number
+          format: double
+        outerClosingRead:
+          type: number
+          format: double
+        openingRead:
+          type: number
+          format: double
+        closingRead:
+          type: number
+          format: double
+        maxReading:
+          type: number
+          format: double
+          nullable: true
+        totalSale:
+          type: number
+          format: double
+          nullable: true
+        userId:
+          type: string
+          format: uuid
+          nullable: true
+        staffId:
+          type: string
+          format: uuid
+          nullable: true
+        pumpId:
+          type: string
+          format: uuid
+          nullable: true
+        staffName:
+          type: string
+          nullable: true
+        branchId:
+          type: string
+          format: uuid
+          nullable: true
+        sync:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        rtt:
+          type: number
+          format: double
+        transfer:
+          type: number
+          format: double
+        pefStationId:
+          type: string
+          nullable: true
+        rejected:
+          type: boolean
+          nullable: true
+        dateRejected:
+          type: string
+          format: date-time
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        pumpName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    OfflinePumpDTO:
+      type: object
+      properties:
+        pumpId:
+          type: string
+          format: uuid
+        deviceId:
+          type: string
+          nullable: true
+        pumps:
+          type: string
+          nullable: true
+        branchName:
+          type: string
+          nullable: true
+        companyName:
+          type: string
+          nullable: true
+        state:
+          type: string
+          nullable: true
+        region:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date-time
+      additionalProperties: false
+    PumpDTOMini:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        displayName:
+          type: string
+          nullable: true
+        openingReading:
+          type: number
+          format: double
+          nullable: true
+        currentReading:
+          type: number
+          format: double
+          nullable: true
+        manualOpeningReading:
+          type: number
+          format: double
+          nullable: true
+        manualClosingReading:
+          type: number
+          format: double
+          nullable: true
+        branchId:
+          type: string
+          format: uuid
+        productName:
+          type: string
+          nullable: true
+        tankName:
+          type: string
+          nullable: true
+        manufacturer:
+          type: string
+          nullable: true
+        lastUpdate:
+          type: string
+          format: date-time
+        sellingPrice:
+          type: number
+          format: double
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        model:
+          type: string
+          nullable: true
+        pumpAddress:
+          type: integer
+          format: int32
+          nullable: true
+        deviceId:
+          type: string
+          nullable: true
+        dateCreated:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    RevokeTokenRequest:
+      type: object
+      properties:
+        token:
+          type: string
+          nullable: true
+        refreshToken:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RevokeTokenResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SupplyItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        nonWetProductInventoryId:
+          type: string
+          format: uuid
+        nonWetProductId:
+          type: string
+          format: uuid
+        pricePerUnit:
+          type: number
+          format: double
+        quantityPerUnit:
+          type: number
+          format: double
+        quantitySupply:
+          type: number
+          format: double
+        productName:
+          type: string
+          nullable: true
+        sizeNumber:
+          type: integer
+          format: int32
+        variationName:
+          type: string
+          nullable: true
+        totalRejected:
+          type: integer
+          format: int32
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        quantityAccepted:
+          type: number
+          format: double
+        isProcessed:
+          type: boolean
+      additionalProperties: false
+    TankDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        currentVolume:
+          type: number
+          format: double
+          nullable: true
+        waterVolume:
+          type: number
+          format: double
+          nullable: true
+        maxCapacity:
+          type: number
+          format: double
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        lastUpdate:
+          type: string
+          format: date-time
+        lastSeen:
+          type: string
+          nullable: true
+        hasATG:
+          type: boolean
+          nullable: true
+        productName:
+          type: string
+          nullable: true
+        productId:
+          type: string
+          format: uuid
+        atgWaterVolume:
+          type: number
+          format: double
+          nullable: true
+        atgVolume:
+          type: number
+          format: double
+          nullable: true
+        lastATGDate:
+          type: string
+          format: date-time
+          nullable: true
+        lastFillDate:
+          type: string
+          format: date-time
+          nullable: true
+        lastFillVolume:
+          type: number
+          format: double
+        temperature:
+          type: number
+          format: double
+        branchId:
+          type: string
+          format: uuid
+        branchName:
+          type: string
+          nullable: true
+        probeId:
+          type: integer
+          format: int32
+          nullable: true
+        reOrderLevel:
+          type: number
+          format: double
+          nullable: true
+        criticalReOrderLevel:
+          type: number
+          format: double
+          nullable: true
+        deviceId:
+          type: string
+          nullable: true
+        dateCreated:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    TankDippingDto:
+      type: object
+      properties:
+        openingDip:
+          type: number
+          format: double
+          nullable: true
+        height:
+          type: number
+          format: double
+          nullable: true
+        filledVolume:
+          type: number
+          format: double
+          nullable: true
+        actualVolume:
+          type: number
+          format: double
+        difference:
+          type: number
+          format: double
+        remarks:
+          type: string
+          nullable: true
+        tankId:
+          type: string
+          format: uuid
+        recordedBy:
+          type: string
+          nullable: true
+        calculatedVolume:
+          type: number
+          format: double
+        recordedOn:
+          type: string
+          format: date-time
+        sync:
+          type: string
+          nullable: true
+        branchId:
+          type: string
+          format: uuid
+          nullable: true
+        date:
+          type: string
+          format: date-time
+        rejected:
+          type: boolean
+          nullable: true
+        dateRejected:
+          type: string
+          format: date-time
+          nullable: true
+        tankName:
+          type: string
+          nullable: true
+        closingDip:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    TankFillDTO:
+      type: object
+      properties:
+        branchName:
+          type: string
+          nullable: true
+        branchId:
+          type: string
+          format: uuid
+        startTime:
+          type: string
+          format: date-time
+        startVolume:
+          type: number
+          format: double
+        endTime:
+          type: string
+          format: date-time
+        endVolume:
+          type: number
+          format: double
+        filledVolume:
+          type: number
+          format: double
+        tank:
+          type: string
+          nullable: true
+        productName:
+          type: string
+          nullable: true
+      additionalProperties: false
+    TankSalesObject:
+      type: object
+      properties:
+        volumeSold:
+          type: number
+          format: double
+        volumeFilled:
+          type: number
+          format: double
+        openingDip:
+          type: number
+          format: double
+        closingDip:
+          type: number
+          format: double
+        productName:
+          type: string
+          nullable: true
+        tankName:
+          type: string
+          nullable: true
+        tankId:
+          type: string
+          format: uuid
+          nullable: true
+        branchName:
+          type: string
+          nullable: true
+        date:
+          type: string
+          format: date-time
+        branchId:
+          type: string
+          format: uuid
+      additionalProperties: false
+    TimeSpan:
+      type: object
+      properties:
+        ticks:
+          type: integer
+          format: int64
+        days:
+          type: integer
+          format: int32
+          readOnly: true
+        hours:
+          type: integer
+          format: int32
+          readOnly: true
+        milliseconds:
+          type: integer
+          format: int32
+          readOnly: true
+        minutes:
+          type: integer
+          format: int32
+          readOnly: true
+        seconds:
+          type: integer
+          format: int32
+          readOnly: true
+        totalDays:
+          type: number
+          format: double
+          readOnly: true
+        totalHours:
+          type: number
+          format: double
+          readOnly: true
+        totalMilliseconds:
+          type: number
+          format: double
+          readOnly: true
+        totalMinutes:
+          type: number
+          format: double
+          readOnly: true
+        totalSeconds:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: "JWT Authorization header using the Bearer scheme. \\r\\n\\r\\n \r\n\t\t\t\t\t  Enter 'Bearer' [space] and then your token in the text input below.\r\n\t\t\t\t\t\t\t\t  \\r\\n\\r\\nExample: 'Bearer 12345abcdef'"
+      name: Authorization
+      in: header
+security:
+  - Bearer: []

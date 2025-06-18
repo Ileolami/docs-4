@@ -1,0 +1,26 @@
+---
+title: Define Process
+description: Learn about the define process for this project
+---
+
+This is a request to implement a meter reading to automatically fetch E-pump readings and store them in Business Central/Retail Portal for tracking, reporting and reconciliation.
+
+All E-pumps should be registered on BC with a unique ID (**Pump ID**) to keep track of individual pumps and what product they dispense (**PMS**, **AGO** etc.) and daily sales at each E- Pump.
+
+The E-pump should also contain the unique identifier of the pump on the third-party side (i.e. BC should keep a record of the Pump-ID used on the E-Pump, this would enable BC to filter the request to the E-Pump).
+
+On certain actions or schedule basis, BC should make provision for the following processes:
+1. A process should be created to sync companies on BC with those on the E-Pump's database so that there can be consistency in data and BC can have the unique identifier required for making requests to the E-Pump.
+2. A process should be created to sync locations(stations) on BC with those on the E-Pump's database so that there can be consistency in data and BC can have the unique identifier required for making requests to the E-Pump.
+3. A process should be created to sync pump details on BC with those on the E-Pump's database so that there can be consistency in data and BC can have the unique identifier required for making requests to the E-Pump.
+4. A process should be created to run on a scheduled basis via a job queue at the start of day to fetch meter reading at the start of the day and at the end of the day to get the daily sales per pump.
+5. A process to enable retail portal push manual meter readings for pumps that are not E-Pumps to BC.
+
+Daily Sales Volume = **End of Day Meter Reading** – **Start of the day Meter Reading**.
+
+<Note>There should be a manual process to fetch meter reading any time during the day for exigent circumstances i.e. If there is a price change during the day, the sales made before and after the price change should be recorded and reported separately.</Note>
+
+Daily Sales Value = **Daily Sales Volume** x **Price per Liter**
+
+<Note>Reports can also be generated using data from the E-pump system i.e, a Pump/Salesperson performance report that shows which pump generates the most revenue.</Note>
+

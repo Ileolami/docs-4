@@ -1,0 +1,44 @@
+---
+title: Data Modification
+description: These are the new table adding to the existing table
+---
+
+### Pumping Reading Table
+
+| Field | Data Type | Description                           |
+| -------- | -------| ------------------------------------- |
+| Pump ID (pk)    | Code (10) | Unique Identifier for the pump               |
+| Reading Value      |  Decimal    |   Current reading displayed on pump                        |
+| Reading Date   |  Date    |    |
+| Reading Time | Time |  |
+| Reading Type | Option | Start of Day, End of Day, Price Change |
+
+```mermaid
+   flowchart LR
+    A[Start of Day] --> B[Get Reading Value, Time and Reading Type]
+    B --> C[Enter Values into Pump Meter Reading Table]
+    B -- Yes --> D{Is there a price change during the day?}
+    D -- No --> E
+    B --> E[End of Day]
+```
+
+### Daily Pump Sales
+
+| Field             | Data Type   | Description                                                                 |
+|------------------|-------------|-----------------------------------------------------------------------------|
+| Pump ID (pk)     | Code (10)   | Unique Identifier for the pump                                              |
+| Sales Date       | Date        |                                                                             |
+| Start Reading    | Decimal     | Start of Day Reading Type from Pump Meter Reading Table                     |
+| End Reading      | Decimal     | End of Day Reading Type from Pump Meter Reading Table                       |
+| Volume Dispensed | Decimal     | End Reading – Start Reading or Price Change Reading – Start Reading         |
+
+```mermaid
+   graph LR
+    A[START OF DAY] --> B[GET PUMP METER READING TABLE DATA]
+    B --> C{IS THERE A PRICE CHANGE DURING THE DAY}
+    C -- NO --> D[SET FILTER ON SALES DATE, GET END READING AND START READING]
+    C -- YES --> E[SET FILTER ON SALES DATE, GET START READING/END READING AND PRICE CHANGE READING]
+    E --> F[GET VOLUME DISPENSED = END READING - START READING]
+    D --> F
+    F --> G[STOP]
+```

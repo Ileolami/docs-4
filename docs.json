@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "METER READING FOR E-PUMP",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,25 +11,32 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Home",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "tab": "System Design",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Overview",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "system-design/introduction"
+            ]
+          }, 
+          {
+            "group": "Design Planning",
+            "pages": [
+              "system-design/design-planning/overview",
+              "system-design/design-planning/role"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Meter Reading Process",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "system-design/Meter Reading Process/define",
+              "system-design/Meter Reading Process/data"
             ]
           }
         ]
@@ -38,65 +45,85 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "API Reference",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Account",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/account/authentication",
+              "api-reference/endpoint/account/delete-active-token",
+              "api-reference/endpoint/account/refresh-token"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "api-reference/endpoint/admin/disconnect-pump",
+              "api-reference/endpoint/admin/unprofitable-pump",
+              "api-reference/endpoint/admin/unreachable-pump"
+            ]
+          },
+          {
+            "group": "Branch",
+            "pages": [
+              "api-reference/endpoint/branch/available-pump",
+              "api-reference/endpoint/branch/branch-discharge-records",
+              "api-reference/endpoint/branch/branch-discharges",
+              "api-reference/endpoint/branch/branch-sales",
+              "api-reference/endpoint/branch/branch-tank-manual",
+              "api-reference/endpoint/branch/branch-tanks-inventory",
+              "api-reference/endpoint/branch/branch-tanks",
+              "api-reference/endpoint/branch/branch-transactions",
+              "api-reference/endpoint/branch/eod-dry-stock-manangement",
+              "api-reference/endpoint/branch/eod-expense-management",
+              "api-reference/endpoint/branch/eod-maintenance-management",
+              "api-reference/endpoint/branch/eod-rental-management"
+            ]
+          },
+          {
+            "group": "Company",
+            "pages": [
+              "api-reference/endpoint/company/branch-pump-transaction",
+              "api-reference/endpoint/company/branches-by-companyid-and-state",
+              "api-reference/endpoint/company/branches-by-companyid",
+              "api-reference/endpoint/company/companies",
+              "api-reference/endpoint/company/company-branches",
+              "api-reference/endpoint/company/dealer-tanks",
+              "api-reference/endpoint/company/disconnected-pump-count",
+              "api-reference/endpoint/company/disconnected-pump-list",
+              "api-reference/endpoint/company/filled-tanks-for-a-group",
+              "api-reference/endpoint/company/offline-pump-count",
+              "api-reference/endpoint/company/offline-pump-list",
+              "api-reference/endpoint/company/pump-by-pump-sale"
+            ]
+          },
+          {
+            "group": "Dry Stock Product",
+            "pages": [
+              "api-reference/endpoint/drystockproduct/branch-dry-stock-record"
+            ]
+          },
+          {
+            "group": "Dry Stock Sale",
+            "pages": [
+              "api-reference/endpoint/drystocksale/branch-dry-stock-sales"
+            ]
+          },
+          {
+            "group": "Dry Stock Supply",
+            "pages": [
+              "api-reference/endpoint/drystocksupply/branch-dry-stock-supply"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
   }
 }

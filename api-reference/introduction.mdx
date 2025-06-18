@@ -1,33 +1,20 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'This section for showcasing API endpoints'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+The **ePump Project** is designed to digitize and streamline fuel dispensing operations across stations by capturing real-time pump readings, tracking sales, and generating insightful reports. This system ensures accuracy in fuel volume monitoring, supports pricing changes during the day, and allows for performance evaluation of pumps and sales personnel.
 
-## Welcome
+This API reference provides access to key endpoints that power the ePump system. These endpoints enable developers and integrators to:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+- Capture pump meter readings at specific times of the day
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+- Handle mid-day price changes with separate recording logic
 
-## Authentication
+- Calculate daily pump sales using start and end readings
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+- Generate performance reports based on pump usage and revenue
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+- Monitor pump statuses, including disconnections or offline behavior
+
+Use this reference to integrate the ePump system with your applications or dashboards, automate reporting, or extend fuel management capabilities within your organization.
